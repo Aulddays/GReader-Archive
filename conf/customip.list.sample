@@ -1,0 +1,12 @@
+# If you experience low download speed, you may specify some local
+# Google IPs in conf/customip.list file, one per line.
+# IPv6 is not currently supported
+# conf/customip.list.sample contains some google_cn IPs, that may
+# help users in China mainland.
+# WARNING: specifying custom IPs MAY NOT speed up the downloading,
+# depending on your network condition. Specifying wrong IPs may
+# even cause download failure or ACCOUNT INFORMATION STOLEN! So do
+# not use custom IPs if you are not sure what you are doing.
+203.208.46.131
+203.208.46.132
+203.208.46.133
