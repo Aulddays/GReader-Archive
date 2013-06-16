@@ -233,6 +233,7 @@ def main():
 		requester.setServers(servers)
 	
 	# Ask for username and password
+	print "\nIf your Google account uses 2-step verification, please refer to http://live.aulddays.com/tech/13/google-reader-archive-download.htm#advanced"
 	user = raw_input("Google Reader Username: ")
 	logging.debug(user)
 	#os.system("stty -echo")
