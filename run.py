@@ -62,7 +62,7 @@ class GRRequester:
 			return 1
 		self.servers = serverlist
 
-	# perfoem a request to Google server
+	# perform a request to Google server
 	def request(self, path, postdata, tries, useauth = True):
 		status = 0
 		data = ""
@@ -93,8 +93,8 @@ class GRRequester:
 					self.conn = None
 				time.sleep(waittime)
 				continue
-			except httplib.BadStatusLine, e:
-				logging.error("Network error (BadStatusLine): %s" % (e))
+			except httplib.HTTPException, e:
+				logging.error("Network error (HTTP error): %s" % (e))
 				if self.conn is not None:
 					self.conn.close()
 					self.conn = None
