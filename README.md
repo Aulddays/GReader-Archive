@@ -23,4 +23,4 @@ Add 2-step verification notification
 
 * Jun 24, 2013 
     1. Handle more http errors
-    2. After all data is finished, uses may delete one/all feed directory(s) in the `data` directory to download them again. (下载完成后，如果想重新下载部分或全部订阅，删除 `data` 目录下订阅对应的子目录再重新运行即可)
+    2. After all data is finished, users may delete one/all feed directory(s) in the `data` directory to download them again. (下载完成后，如果想重新下载部分或全部订阅，删除 `data` 目录下订阅对应的子目录再重新运行即可)
