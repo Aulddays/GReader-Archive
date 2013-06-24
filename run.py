@@ -110,34 +110,6 @@ class GRRequester:
 			break	# should be no exception if arrived here
 		return status, data
 
-#	def get(self, path, tries, auth = None):
-#		status = 0
-#		data = ""
-#		headers = self.commonheader
-#		if auth is not None:
-#			headers['Authorization'] = 'GoogleLogin auth=' + auth
-#		for i in range(tries):	# retry 3 times on network errors
-#			try:
-#				if self.conn is None:
-#					self.reconnect()
-#				logging.debug("Begin download")
-#				self.conn.request("GET", path, headers = headers)
-#				response = self.conn.getresponse()
-#				status = response.status
-#				data = response.read()
-#				if response.getheader('Content-Encoding') == 'gzip':
-#					data = gzip.GzipFile(fileobj=StringIO(data)).read()
-#				logging.debug("End download")
-#			except socket.error, e:
-#				logging.error("Network error: %s" % (e))
-#				if self.conn is not None:
-#					self.conn.close()
-#					self.conn = None
-#				time.sleep(waittime)
-#				continue
-#			break	# should be no exception if arrived here
-#		return status, data
-
 	def reconnect(self):
 		if self.conn is not None:
 			self.conn.close()
@@ -244,67 +216,36 @@ def main():
 	
 	if requester.setUser(user, pwd) != 0:
 		logging.error("")
-		exit(1)
+		return 1
 	
 	userdir = datadir + '/' + user
 	mkdir(userdir)
-	gfin, gNone, gid = processRead(userdir + '/process.dat')
-	if gfin is not None:	# have process record
-		if gfin != 0: # already finished
-			overwrite = raw_input("%s's data has already finished downloading. Start over again? (y/n): " % (user))
-			if not (overwrite.startswith('y') or overwrite.startswith('Y') or
-				overwrite.startswith('t') or overwrite.startswith('T') or overwrite.startswith('1')):
-					logging.info("Finish")
-					exit(0)
-			gfin = gid = None
-		elif len(gid) > 0: 	# partial download found
-			while 1:
-				overwrite = raw_input("Unfinished download found. Continue (press c) or Start over again (press s)?: ")
-				if overwrite.lower().startswith('s'):
-					gfin = gid = None
-					break
-				elif overwrite.lower().startswith('c'):	# continue
-					try:
-						subs = json.loads(fileRead(userdir + '/subscriptions.json'))
-						if not subs.has_key('subscriptions'):
-							raise ValueError
-						break
-					except ValueError:
-						logging.error("Invalid unfinished download data. Please delete all downloaded data and try again.")
-						exit(1)
-		else: # gfin != 0 and len(gid) == 0, invalid data load
-			gfin = gid = None
-			
 	
-	if gfin is None:
-		logging.info('Retrieving subscribtion list...')
-		for i in range(3):
-			status, data = requester.request('https://www.google.com/reader/api/0/subscription/list?output=json',
-					None, 3)
-			if status == 200:
-				subs = json.loads(data)
-				#print subs
-				if subs.has_key('subscriptions'):
-					break
-			logging.info('%d: %s' % (status, data))
-			time.sleep(waittime)
-		if status != 200:
-			logging.error("Error retrieving subscription list")
-			sys.exit(1)
-		logging.info('Retrieved %d items of user %s' % (len(subs['subscriptions']), user))
-		fileWrite(userdir + '/subscriptions.json', data)
+	# always retrieve the latest subscription list
+	logging.info('Retrieving subscription list...')
+	for i in range(3):
+		status, data = requester.request('https://www.google.com/reader/api/0/subscription/list?output=json',
+				None, 3)
+		if status == 200:
+			subs = json.loads(data)
+			#print subs
+			if subs.has_key('subscriptions'):
+				break
+			logging.error('Invalid subscription list retrieved!')
+			status = 0
+		logging.debug('%d: %s' % (status, data))
+		time.sleep(waittime)
+	if status != 200:
+		logging.error("Error retrieving subscription list")
+		return 1
+	logging.info('Retrieved %d items of user %s' % (len(subs['subscriptions']), user))
+	fileWrite(userdir + '/subscriptions.json', data)
 	
 	# download each subscription
 	for sub in subs['subscriptions']:
 		logging.info("Processing %s (%s)..." % (sub['title'], sub['id']))
-		if gid != None and sub['id'] != gid:
-			print gid, sub['id']
-			logging.info('Already downloaded, skip')
-			continue
-		elif gid is None:
-			processWrite(userdir + '/process.dat', 0, 0, sub['id'])
 		
-		# determin the dir(s) to put this subscription
+		# determine the dir(s) to put this subscription
 		subdirs = []
 		for cat in sub['categories']:
 			catdir = userdir + '/dir_' + dirnameClean(cat['label'])
@@ -342,15 +283,16 @@ def main():
 		# download contents
 		c = ''	# c param in url
 		idx = 0
-		if gid != None and sub['id'] == gid:	# subscription partially downloaded
-			gid = None
-			sfin, idx, c = processRead(subdirs[0] + '/process.dat')
-			if sfin is not None and sfin != 0:	# finished
-				logging.info('Already downloaded, skip')
-				continue
-			elif sfin is None or c == '':	# none downloaded or invalid data, start over again
-				c = ''
-				idx = 0
+		# test current process first
+		sfin, idx, c = processRead(subdirs[0] + '/process.dat')
+		if sfin is not None and sfin != 0:	# finished
+			logging.info('Already downloaded, skip')
+			continue
+		elif sfin is None or c == '':	# none downloaded or invalid data, start over again
+			c = ''
+			idx = 0
+		else:
+			logging.info('Partial download found, resume.')
 		
 		while 1: # download each file of this subscription
 			url = 'https://www.google.com/reader/atom/' + urlReplace(sub['id']) + '?n=2000'
@@ -395,13 +337,18 @@ def main():
 	# end of download each subscription
 	processWrite(userdir + '/process.dat', 1, 0, '')
 	logging.info("%s finished downloading", user)
+	logging.info('If you intented to download some/all feed(s) again, detete the directory of that/those/all feed(s) in the data directory and re-run run.py.')
+	return 0
 
-	
 
 if __name__ == '__main__':
 	print CR
+	res = 0
 	try:
-		main()
+		res = main()
 	except KeyboardInterrupt:
 		print
 		logging.info("Exit. You may choose to continue unfinished download next time.")
+	raw_input("Press ENTER to exit...")
+	exit(res)
+
