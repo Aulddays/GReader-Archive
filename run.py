@@ -111,10 +111,15 @@ class GRRequester:
 		return status, data
 
 	def reconnect(self):
+		server = self.servers[random.randint(0, len(self.servers) - 1)]
 		if self.conn is not None:
 			self.conn.close()
 			self.conn = None
-		self.conn = httplib.HTTPSConnection(self.servers[random.randint(0, len(self.servers) - 1)], timeout = 30)
+		if os.environ.has_key("http_proxy"):
+			self.conn = httplib.HTTPSConnection(os.environ["http_proxy"].replace("http://",""), timeout = 30)
+			self.conn.set_tunnel(server, 443)
+		else:
+ 			self.conn = httplib.HTTPSConnection(server, timeout = 30)
 
 	def setUser(self, user, pwd):
 		self.auth = None
@@ -166,7 +171,7 @@ def dirnameClean(dirname):
 	spechars = '/\\?*"<>|:.'
 	for char in spechars:
 		dirname = dirname.replace(char, '_')
-	return dirname
+	return dirname.encode('utf8')
 
 def mkdir(dirname):
 	if not os.path.exists(dirname):
