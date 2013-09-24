@@ -1,3 +1,16 @@
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
 var subscriptions = {};
 var curFeed = '';
 var curFeedIdx = null;
@@ -72,14 +85,16 @@ function loadUsers()
 				usertpl.parent().append(item);
 				if(curUser != '' && curUser == user)
 				{
+					$('#entry-tpl1').hide();
 					loadSubscription();
 					return false;	// break $each()
 				}
 			});	// $.each(subscriptions, function(i, sub){
 			if(userno == 1)	// only one user, just show
 			{
-				window.location.href = '#' + lastuser;
 				curUser = lastuser;
+				updateUrlParam();
+				$('#entry-tpl1').hide();
 				loadSubscription();
 			}
 		});
@@ -168,7 +183,7 @@ function loadSubscription(event) {
 					itemtpl.parent().append(item);
 				}
 			});
-			showContent();
+			onSwitchFeed();
 		})
 		.fail(function() {
 			console.log('loadSubscription fail');
@@ -181,24 +196,37 @@ function loadSubscription(event) {
 }
 
 function onSwitchFeed(event) {
-	event.preventDefault();
-	var feedidx = /^sub-tree-item-(([0-9]+)(_[0-9]+)?)-link$/g.exec($(this).attr('id'));
-	if(!feedidx)
+	var feedidx = null;
+	if(event)
 	{
-		alert("Opps, something was wrong...");
-		return;
+		event.preventDefault();
+		feedidx = /^sub-tree-item-(([0-9]+)(_[0-9]+)?)-link$/g.exec($(this).attr('id'));
+		if(!feedidx)
+		{
+			alert("Opps, something was wrong...");
+			return;
+		}
+		feedidx = feedidx[1];
 	}
-	if (curFeedIdx != feedidx[1]) {
-		if (curFeedIdx != '') {
+	if (curFeedIdx != feedidx) {
+		if(feedidx == null)	// curFeedIdx!=null implied => event==null => not called by click but manually
+		{
+			feedidx = curFeedIdx;
+			curFeedIdx = null;
+		}
+		if (curFeedIdx) {
 			$('#sub-tree-item-' + curFeedIdx + '-link').removeClass('tree-link-selected');
 			$('#sub-tree-item-' + curFeedIdx + '-name').removeClass('name-unread');
 		}
-		$(this).addClass('tree-link-selected');
-		$('#sub-tree-item-' + feedidx[1] + '-name').addClass('name-unread');
-		curFeedIdx = feedidx[1];
+		$('#sub-tree-item-' + feedidx + '-name').parent().addClass('tree-link-selected');
+		$('#sub-tree-item-' + feedidx + '-name').addClass('name-unread');
+		curFeedIdx = feedidx;
 	}
-	window.location.href = '#' + curUser + '|' + curFeedIdx + '|' + pagel + '|' + page;
-	showContent();
+	if(curFeedIdx)
+	{
+		updateUrlParam();
+		showContent();
+	}
 	return false;
 }
 
@@ -401,8 +429,15 @@ function parseUrlParam() {
 	$( "#page-len" ).buttonset('refresh');
 	if(curUser != '')
 		$('#sub-tree-item-0-name').text(decodeURIComponent(curUser));
+	updateUrlParam();
+}
+
+function updateUrlParam()
+{
 	if(curFeedIdx)
 		window.location.href = '#' + curUser + '|' + curFeedIdx + '|' + pagel + '|' + page;
+	else if(curUser)
+		window.location.href = '#' + curUser;
 }
 
 function onSetPage(event) {
