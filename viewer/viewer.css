@@ -1,0 +1,307 @@
+/*Styles mostly taken from https://www.google.com/reader/ui/4273095679-zh-CN-scroll.css?hl=zh-CN*/
+body {
+    color: #000000;
+}
+html, body {
+    font-size: 90%;
+}
+#main {
+    /*overflow-x: auto;*/
+    position: relative;
+}
+div, form {
+    margin: 0;
+}
+.hidden {
+    display: none !important;
+}
+.link {
+    cursor: pointer;
+}
+a:focus, .unselectable {
+    -moz-user-select: none;
+}
+.clear {
+    clear: both;
+    font-size: 1px;
+    height: 1px;
+    width: 1px;
+}
+#nav {
+    float: left;
+}
+#nav, #logo-container, #lhn-add-subscription-section, #scrollable-sections, #scrollable-sections-top-shadow, #scrollable-sections-bottom-shadow {
+    width: 236px;
+}
+#nav a, #nav a .text, #nav .link {
+    color: #000000;
+    text-decoration: none;
+}
+#scrollable-sections {
+}
+#scrollable-sections-holder {
+   position:fixed;
+   max-height:100%;
+   overflow-y:auto;
+   bottom:0;
+   left:0;
+   top: 31px;
+   width: 230;
+}
+#viewer-container {
+   position:fixed;
+   max-height:100%;
+   overflow-y:auto;
+   bottom:0;
+   top: 49px;
+   right: 5px;
+   left: 245px;
+   /*width: 230;*/
+}
+#viewer-entries-container, #viewer-page-container {
+/*    overflow-x: visible;
+    overflow-y: auto;
+    position: relative;*/
+}
+
+.folder .folder .name-text.folder-name-text {
+    max-width: 132px;
+}
+.folder .folder .name-text {
+    max-width: 125px;
+}
+.folder .name-text, #reading-list-selector .label {
+    display: inline-block;
+    max-width: 132px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.folder .folder .folder-toggle {
+    margin-left: 5px;
+}
+.folder .folder > a > .icon {
+    margin-left: 20px;
+}
+.folder .folder .icon {
+    margin-left: 20px;
+}
+.folder .icon {
+    margin-left: 13px;
+}
+.folder-icon, .sub-icon, .tag-icon {
+    opacity: 0.4;
+}
+
+.unread-count {
+    color: #666666;
+    display: inline-block;
+    font-size: 85%;
+    margin-right: 16px;
+    padding: 0 0 0 4px;
+    vertical-align: top;
+}
+
+.scroll-tree {
+    font-size: 13px;
+    line-height: 21px;
+    padding: 0;
+    position: relative;
+}
+.scroll-tree ul {
+    padding-left: 0;
+}
+.scroll-tree, .scroll-tree ul, .scroll-tree li {
+    margin: 0;
+}
+.scroll-tree li {
+    background: none repeat scroll 0 0 #FFFFFF;
+    list-style-type: none;
+    margin: 2px 0;
+    position: relative;
+}
+.scroll-tree li a {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.scroll-tree li a .name {
+    color: #333333;
+}
+.scroll-tree li a .name-unread {
+    color: #000000;
+    font-weight: bold;
+}
+.scroll-tree .collapsed .toggle {
+    background-position: 0 -120px;
+}
+.scroll-tree .expanded .toggle {
+    background-position: -23px -120px;
+}
+.scroll-tree .toggle {
+    background: url("./3660573864-lhn-sprite.png") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 18px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 20px;
+    z-index: 2;
+}
+.scroll-tree .collapsed .toggle {
+    background-position: 0 -120px;
+}
+.scroll-tree li.folder .link, .scroll-tree li.sub {
+    height: 21px;
+}
+.lhn-section-secondary li a {
+    border-left: 3px solid white;
+}
+.lhn-section-secondary li a.tree-link-selected {
+    border-left: 3px solid #DD4B39;
+}
+.scroll-tree li a.tree-link-selected .name, .scroll-tree li a.tree-link-selected:hover .name {
+    color: #D14836;
+}
+.scroll-tree li .tree-link-selected .name {
+    text-decoration: none;
+}
+.scroll-tree .icon, .scroll-tree .favicon {
+    margin-left: 13px;
+}
+.scroll-tree .icon {
+    background: url("./3660573864-lhn-sprite.png") no-repeat scroll 0 0 transparent;
+}
+.scroll-tree .folder-icon {
+    background-position: -42px -118px;
+}
+.scroll-tree .icon, .scroll-tree .favicon {
+    float: left;
+    height: 21px;
+    margin-right: 2px;
+    width: 21px;
+}
+.lhn-section-secondary li a {
+    border-left: 3px solid white;
+}
+#chrome {
+    margin-left: 236px;
+    min-width: 700px;
+}
+#chrome-title {
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+    overflow: hidden;
+    padding-bottom: 1px;
+    white-space: nowrap;
+}
+#chrome-title a {
+    color: #444444;
+    text-decoration: none;
+}
+.entry .card {
+    overflow: hidden;
+}
+.card {
+    border: 1px solid #DDDDDD;
+    box-shadow: 0 0 4px #E3E5EB;
+}
+.card-common {
+    background-color: #FFFFFF;
+    margin: 10px 2px 0 0;
+}
+.card-content {
+	margin: 5px 5px 0;
+}
+.samedir .entry .card-common .entry-container .entry-date {
+    float: right;
+}
+.entry .card-common .entry-container .entry-date {
+    direction: ltr;
+}
+.entry .entry-author, .entry .entry-date {
+    color: #666666;
+    text-decoration: none;
+}
+.entry-container .entry-title {
+    color: #1155CC;
+}
+.entry .entry-title {
+    font-size: 140%;
+    margin: 0;
+}
+.entry .entry-title a {
+    text-decoration: none;
+}
+a, a:visited, .link {
+    color: #1155CC;
+}
+#entries.single-source .entry-source-title-parent, #entries.single-source .entry-source-title {
+    display: none;
+}
+.entry .entry-author, .entry .entry-date {
+    color: #666666;
+}
+.card-common .card-actions {
+    background-color: #FAFAFA;
+    border-top: 1px solid #EBEBEB;
+    color: #666666;
+    height: 30px;
+}
+.entry .entry-actions a, .entry .entry-actions .link {
+    color: #444444;
+    text-decoration: none;
+}
+.entry .entry-actions .star, .entry .entry-actions .dislike, .entry .entry-actions .read-state, .entry .entry-actions .email, .entry .entry-actions .tag, .entry .entry-icons .star {
+    margin-right: 16px;
+    padding: 1px 0 1px 16px;
+    white-space: nowrap;
+}
+.entry .entry-actions {
+    direction: ltr;
+    padding: 6px 7px;
+}
+.entry-body {
+    padding-right: 20px;
+}
+.tree-sample {
+    display: none;
+}
+.item-div {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+/*
+#header-button {
+	margin: 2px;
+	position: relative;
+	padding: 4px 0;
+	cursor: pointer;
+	float: left;
+	list-style: none;
+}
+#haha span.ui-icon {
+	float: left;
+	margin: 0 4px;
+}
+	#viewer-header {
+		margin: 0;
+		padding: 0;
+	}
+	#viewer-header div {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0;
+		cursor: pointer;
+		float: left;
+		list-style: none;
+	}
+	#viewer-header span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+*/

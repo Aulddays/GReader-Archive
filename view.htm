@@ -1,0 +1,342 @@
+<!doctype html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<script src="./viewer/jquery-1.10.1.min.js"></script>
+<script src="./viewer/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="./viewer/sprintf.min.js"></script>
+<script src="./viewer/viewer.js"></script>
+<link href="./viewer/smoothness/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+<link href="./viewer/viewer.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<script>
+
+$(document).ready(function() {
+});
+
+</script>
+
+<div class="" id="main">
+	<div id="nav">
+		<div id="logo-section">
+			<a id="logo-link" href="http://live.aulddays.com/tech/13/google-reader-archive-download.htm">GReader Archive</a>
+		</div>
+
+		<div id="scrollable-sections-holder">
+			<div class="mouseout" id="scrollable-sections">
+
+
+				<div class="section lhn-section  " id="lhn-subscriptions">
+					<div class="section-button section-minimize" id="lhn-subscriptions-minimize"></div>
+					<div></div>
+					<div class="scroll-tree-container lhn-section-secondary" id="sub-tree-container">
+						<ul class="scroll-tree" id="sub-tree">
+							<li id="sub-tree-item-0-main" class="folder unselectable expanded">
+								<div class="toggle folder-toggle toggle-d-0"></div>
+								<a id="sub-tree-item-0-link" href="./root" class="link" onclick="return false">
+									<div id="sub-tree-item-0-icon" class="icon folder-icon icon-d-0"></div>
+									<div id="sub-tree-item-0-name" class="name-text folder-name-text name-text-d-0 name folder-name name-d-0">root</div>
+									<div id="sub-tree-item-0-unread-count" class="unread-count folder-unread-count unread-count-d-0"></div>
+									<div class="tree-item-action-container">
+										<div class="action tree-item-action section-button section-menubutton ga-menu-button" id="sub-tree-item-0-action"></div>
+									</div>
+								</a>
+								<ul>
+									<!-- category item -->
+									<li id="sub-tree-item-dirsample-main" class="folder unselectable collapsed unread tree-sample">
+										<div class="toggle folder-toggle toggle-d-1"></div>
+										<a id="sub-tree-item-dirsample-link" href="/reader/label/SampleDir0" class="link">
+											<div class="icon folder-icon icon-d-1"></div>
+											<div id="sub-tree-item-dirsample-name" class="name-text folder-name-text name-text-d-1 name folder-name name-d-1 name-unread">SampleDir0</div>
+											<div class="unread-count folder-unread-count unread-count-d-1"></div>
+											<div class="tree-item-action-container">
+												<div class="action tree-item-action section-button section-menubutton ga-menu-button" id="sub-tree-item-dirsample-action"></div>
+											</div>
+										</a>
+										<ul>
+											<!-- item in category -->
+											<li id="sub-tree-item-diritemsample-main" class="sub unselectable expanded unread">
+												<div class="toggle sub-toggle toggle-d-2 hidden"></div>
+												<a id="sub-tree-item-diritemsample-link" href="./feed/sample_item0_0" class="link">
+													<div id="sub-tree-item-diritemsample-icon" class="icon sub-icon icon-d-2 favicon" style="background-image: url(./3660573864-lhn-sprite.png) no-repeat scroll 0 0 transparent; background-position: 0px -76px;"></div>
+													<div id="sub-tree-item-diritemsample-name" class="name-text sub-name-text name-text-d-2 name sub-name name-d-2">Sample Item 0-0</div>
+													<div id="sub-tree-item-diritemsample-unread-count" class="unread-count sub-unread-count unread-count-d-2">(0)</div>
+													<div class="tree-item-action-container">
+														<div class="action tree-item-action section-button section-menubutton ga-menu-button" id="sub-tree-item-diritemsample-action"></div>
+													</div>
+												</a>
+											</li>
+										</ul>
+									</li>
+									
+									<!-- regular item -->
+									<li id="sub-tree-item-itemsample-main" class="sub unselectable expanded unread tree-selected tree-sample">
+										<div class="toggle sub-toggle toggle-d-1 hidden"></div>
+										<a id="sub-tree-item-itemsample-link" href="./feed/sample_item_1" class="link">
+											<div class="icon sub-icon icon-d-1 favicon" style="background-image: url(./3660573864-lhn-sprite.png) no-repeat scroll 0 0 transparent; background-position: 0px -76px;"></div>
+											<div id="sub-tree-item-itemsample-name" class="name-text sub-name-text name-text-d-1 name sub-name name-d-1">Sample Item 1</div>
+											<div id="sub-tree-item-itemsample-unread-count" class="unread-count sub-unread-count unread-count-d-1">(0)</div>
+											<div class="tree-item-action-container">
+												<div class="action tree-item-action section-button section-menubutton ga-menu-button" id="sub-tree-item-itemsample-action"></div>
+											</div>
+										</a>
+									</li>
+
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="scrollable-sections-top-shadow" style="opacity: 1.13333;"></div>
+			<div id="scrollable-sections-bottom-shadow" style="opacity: 11.5667;"></div>
+		</div>
+	</div>
+	<div class="" id="chrome">
+		<div id="chrome-viewer-container">
+			<div class="" id="chrome-viewer">
+				
+				<div id="viewer-header-container">
+					<div id="viewer-header">
+						<button id="page-no" title="Current page">Page 0 / 0</button>
+						<button id="page-0" class="page-button">First page</button>
+						<button id="page-up" class="page-button">Page up</button>
+						<button id="page-down" class="page-button">Page down</button>
+						<button id="page-last" class="page-button">Last page</button>
+						<span id="page-len">
+							<input type="radio" id="pagelen-10" name="page-len"><label for="pagelen-10" title="10 items per page">10</label>
+							<input type="radio" id="pagelen-20" name="page-len"><label for="pagelen-20" title="20 items per page">20</label>
+							<input type="radio" id="pagelen-50" name="page-len" checked="checked"><label for="pagelen-50" title="50 items per page">50</label>
+							<input type="radio" id="pagelen-100" name="page-len"><label for="pagelen-100" title="100 items per page">100</label>
+						</span>
+					</div>
+					
+					<!-- <div id="viewer-header" class="ui-widget ui-helper-clearfix">
+					<div id="page-no" class="ui-state-default ui-corner-all ui-button-text-only" title="Current page"><span id="page-no-text" class="ui-button-text">Page 0/0</span></div>
+					<div id="page-first" class="ui-state-default ui-corner-all" title="First page"><span class="ui-icon ui-icon-arrowthickstop-1-w">haha</span></div>
+					<div id="page-up" class="ui-state-default ui-corner-all" title="Page up"><span class="ui-icon ui-icon-arrowthick-1-w"></span></div>
+					<div id="page-down" class="ui-state-default ui-corner-all" title="Page down"><span class="ui-icon ui-icon-arrowthick-1-e"></span></div>
+					<div id="page-last" class="ui-state-default ui-corner-all" title="Last page"><span class="ui-icon ui-icon-arrowthickstop-1-e"></span></div>
+					<div id="item-prev" class="ui-state-default ui-corner-all" title="Prev item"><span class="ui-icon ui-icon-carat-1-n"></span></div>
+					<div id="item-next" class="ui-state-default ui-corner-all" title="Next item"><span class="ui-icon ui-icon-carat-1-s"></span></div>
+				</div> -->
+				
+				</div>
+
+				<div id="viewer-container">
+
+					<div id="viewer-entries-container" style="visibility: visible;" class="">
+						<div id="title-and-status-holder">
+							<span id="chrome-title">
+								<a id="chrome-title-link" target="_blank" href="http://live.aulddays.com/tech/13/google-reader-archive-download.htm">GReader-Archive</a>
+								<span class="chevron"> &gt;&gt;</span><img id="loading" style="padding-left:10px;display:none;" src="viewer/loading.gif" />
+							</span>
+							<span id="viewer-single-parent"></span>
+							<span id="viewer-single-item-parent"></span>
+							<span id="entries-status"></span>
+							<div style="" class="clear"></div>
+						</div>
+						<div class="samedir">
+							<div class="hidden" id="quick-add-success">您已经订阅了“<span id="quick-add-success-title">Haha</span>”。</div>
+							<div id="entries" class="single-source cards">
+								
+								
+								<div id="entry-tpl0" class="entry entry-tpl" style="height: auto;">
+									<div class="card card-common">
+										<div class="card-content">
+											<div class="entry-container">
+												<div class="entry-main">
+													<div class="entry-date">Today</div>
+													<h2 class="entry-title">
+														<a href="#" target="_blank" class="entry-title-link">ERROR<div class="entry-title-go-to"></div>
+														</a>
+														<span class="entry-icons-placeholder">
+															<div class="entry-icons">
+																<div class="item-star star link unselectable empty"></div>
+															</div>
+														</span>
+													</h2>
+													<div class="entry-author">
+														<span class="entry-source-title-parent">来源：<a target="_blank" class="entry-source-title" href="sample_feed">Aulddays</a>
+														</span>
+													</div>
+													<div class="entry-debug"></div>
+													<div class="entry-annotations"></div>
+													<div class="entry-body">
+														<div>
+															<div class="item-body">
+																<div class="item-div">
+																	<p>加载失败。请参考以下操作步骤：</p>
+																	<p>Failed to load contents. Make sure you have done the following:</p>
+																	<ol><li>在项目主目录下运行<code>view.py</code>。
+																		Run <code>view.py</code> in project main dir.</li>
+																		<li>推荐使用 <a href="https://www.mozilla.org/firefox/">Firefox</a>。
+																		<a href="https://www.mozilla.org/firefox/">Firefox</a> is recommended.</li>
+																		<li>如果使用 Chrome，需以 <code>--allow-file-access-from-files</code> 参数启动。
+																		If using Chrome， Start Chrome with <code>--allow-file-access-from-files</code> switch.
+																		<br /><img src="viewer/chrome.png" /></li>
+																		<li>IE 下的文字展现可能出现便宜，推荐使用 Firefox。</li>
+																		<li>如果使用 IE 时提示脚本被禁用，请点击“允许”。
+																		If using IE, press "Allow" if Prompted.<br /><img src="viewer/ie.png" /></li>
+																	</ol>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="card-actions card-bottom">
+											<div class="entry-actions">
+												<span class="email">
+													<span class="link unselectable">暂无操作</span>
+												</span>
+												<span class="tag link unselectable">
+													<span class="entry-tagging-action-title">暂无标签</span>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								
+								<div id="entry-tpl1" class="entry entry-tpl" style="height: auto; display:none">
+										<div class="card card-common">
+											<div class="card-content">
+												<div class="entry-container">
+													<div class="entry-main">
+														<div class="entry-date"></div>
+														<h2 class="entry-title">
+															<a href="#" target="_blank" class="entry-title-link">User selection<div class="entry-title-go-to"></div>
+															</a>
+															<span class="entry-icons-placeholder">
+																<div class="entry-icons">
+																	<div class="item-star star link unselectable empty"></div>
+																</div>
+															</span>
+														</h2>
+														<div class="entry-author">
+															<span class="entry-source-title-parent">来源：<a target="_blank" class="entry-source-title" href="">Aulddays</a>
+															</span>
+														</div>
+														<div class="entry-debug"></div>
+														<div class="entry-annotations"></div>
+														<div class="entry-body">
+															<div>
+																<div class="item-body">
+																	<div>
+																		<p>发现多个用户的数据。请在下面选择想要的用户:</p>
+																		<p>Multiple user data found. Please select the one you want to view below:</p>
+																		<ul>
+																			<li class="user-selection-sample" style="display:none"><a href="#"></a></li>
+																		</ul>
+																	</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="card-actions card-bottom">
+													<div class="entry-actions">
+													</div>
+												</div>
+											</div>
+										</div>
+										
+										
+								<div id="entry-tpl2" class="entry entry-tpl" style="height: auto; display:none">
+										<div class="card card-common">
+											<div class="card-content">
+												<div class="entry-container">
+													<div class="entry-main">
+														<div class="entry-date"></div>
+														<h2 class="entry-title">
+															<a href="#" target="_blank" class="entry-title-link">Feed selection<div class="entry-title-go-to"></div>
+															</a>
+															<span class="entry-icons-placeholder">
+																<div class="entry-icons">
+																	<div class="item-star star link unselectable empty"></div>
+																</div>
+															</span>
+														</h2>
+														<div class="entry-author">
+															<span class="entry-source-title-parent">来源：<a target="_blank" class="entry-source-title" href="">Aulddays</a>
+															</span>
+														</div>
+														<div class="entry-debug"></div>
+														<div class="entry-annotations"></div>
+														<div class="entry-body">
+															<div>
+																<div class="item-body">
+																	<div>
+																		<p>请在左侧栏选择需要查看的 Feed。</p>
+																		<p>Please select one feed to view from the left bar.</p>
+																	</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="card-actions card-bottom">
+													<div class="entry-actions">
+													</div>
+												</div>
+											</div>
+										</div>
+										
+								<div id="entry-tpl3" class="entry entry-tpl" style="height: auto; display:none">
+										<div class="card card-common">
+											<div class="card-content">
+												<div class="entry-container">
+													<div class="entry-main">
+														<div class="entry-date"></div>
+														<h2 class="entry-title">
+															<a href="#" target="_blank" class="entry-title-link">Oops...<div class="entry-title-go-to"></div>
+															</a>
+															<span class="entry-icons-placeholder">
+																<div class="entry-icons">
+																	<div class="item-star star link unselectable empty"></div>
+																</div>
+															</span>
+														</h2>
+														<div class="entry-author">
+															<span class="entry-source-title-parent">来源：<a target="_blank" class="entry-source-title" href="">Aulddays</a>
+															</span>
+														</div>
+														<div class="entry-debug"></div>
+														<div class="entry-annotations"></div>
+														<div class="entry-body">
+															<div>
+																<div class="item-body">
+																	<div>
+																		<p>加载数据文件失败。请检查之前下载的数据文件是否完整。如果您使用 IE，建议尝试换用 Firefox</p>
+																		<p>Failed to load datafile. Please check the data integrity, or, if you are in IE, try switch to Firefox.</p>
+																	</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="card-actions card-bottom">
+													<div class="entry-actions">
+													</div>
+												</div>
+											</div>
+										</div>
+										
+
+									</div>
+								</div>
+							</div>
+							<div id="viewer-page-container"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</body>
