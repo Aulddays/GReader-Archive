@@ -62,7 +62,6 @@ $(document).ready(function() {
 	//);
 	parseUrlParam();
 	loadUsers();
-	// loadSubscription();
 });
 
 function loadUsers()
@@ -227,6 +226,11 @@ function onSwitchFeed(event) {
 		updateUrlParam();
 		showContent();
 	}
+	else
+	{
+		$('.entry-tpl').hide();
+		$('#entry-tpl2').show();
+	}
 	return false;
 }
 
@@ -360,11 +364,6 @@ function showContent() {
 			});
 		})(0);
 	}	// if (curFeedIdx)
-	else
-	{
-		$('.entry-tpl').hide();
-		$('#entry-tpl2').show();
-	}
 }
 
 function loadData(dir, idx) {
@@ -427,13 +426,13 @@ function parseUrlParam() {
 	}
 	$('input:radio[name=page-len]')[pagelidx].checked = true;
 	$( "#page-len" ).buttonset('refresh');
-	if(curUser != '')
-		$('#sub-tree-item-0-name').text(decodeURIComponent(curUser));
 	updateUrlParam();
 }
 
 function updateUrlParam()
 {
+	if(curUser != '')
+		$('#sub-tree-item-0-name').text(decodeURIComponent(curUser));
 	if(curFeedIdx)
 		window.location.href = '#' + curUser + '|' + curFeedIdx + '|' + pagel + '|' + page;
 	else if(curUser)
